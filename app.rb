@@ -12,14 +12,14 @@ require_relative 'modules.rb'
 		slim(:index)
     end
 
-    post('/') do
+    post('/start') do
         session[:className] = params[:className]
         session[:difficulty] = params[:difficulty]
-        redirect('/start')
+        redirect('/game1')
     end
 
-    get('/start') do
+    get('/game1') do
         className = session[:className]
         difficulty = session[:difficulty]
-        slim(:start)
+        slim(:game1)
     end
