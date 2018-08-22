@@ -1,5 +1,4 @@
 require 'sinatra'
-require 'sqlite3'
 require 'byebug'
 require 'slim'
 require './ClassFix.rb'
