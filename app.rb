@@ -9,5 +9,17 @@ require_relative 'modules.rb'
 	enable:sessions
 
 	get('/') do
-		
+		slim(:index)
+    end
+
+    post('/') do
+        session[:className] = params[:className]
+        session[:difficulty] = params[:difficulty]
+        redirect('/start')
+    end
+
+    get('/start') do
+        className = session[:className]
+        difficulty = session[:difficulty]
+        slim(:start)
     end
