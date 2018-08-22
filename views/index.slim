@@ -1,0 +1,13 @@
+h1 WhatsTheirFaces
+
+form action="/start" method="POST"
+    select name="className"
+        - for c in classes
+            option value="#{c[0]}" #{c[0]}
+            
+    select name="difficulty"
+        option value="0" Easy
+        option value="1" Medium
+        option value="2" Hard
+
+    input type="submit" value="Start"
