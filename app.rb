@@ -9,7 +9,7 @@ require_relative 'modules.rb'
 
     get('/') do
         groups = getList()[1]
-		slim(:index,  locals:{groups: groups})
+		slim(:index, locals:{groups: groups})
     end
 
     post('/start') do
@@ -20,7 +20,15 @@ require_relative 'modules.rb'
 
     get('/game1') do
         className = session[:className]
-        difficulty = session[:difficulty]
-        p getList()[0][className]
-        slim(:game1)
+        difficulty = session[:difficulty].to_i
+        names = getList()[0][className].shuffle
+        if difficulty == 2
+        elsif difficulty == 1
+            size = (names.length/2).to_i
+            names = names[0...size]
+        else
+            size = (names.length/4).to_i
+            names = names[0...size]
+        end
+        slim(:game1, locals:{names: names})
     end
