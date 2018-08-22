@@ -37,7 +37,7 @@ def ClassFix(students)
         name_hash[s] = namelist
         namelist = []
     end
-    return name_hash
+    return name_hash, groups
 end
 
 
