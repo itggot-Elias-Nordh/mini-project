@@ -21,5 +21,6 @@ require_relative 'modules.rb'
     get('/game1') do
         className = session[:className]
         difficulty = session[:difficulty]
+        p getList()[0][className]
         slim(:game1)
     end
