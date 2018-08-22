@@ -30,5 +30,5 @@ require_relative 'modules.rb'
             size = (names.length/4).to_i
             names = names[0...size]
         end
-        slim(:game1, locals:{names: names})
+        slim(:game1, locals:{className: className, names: names})
     end
