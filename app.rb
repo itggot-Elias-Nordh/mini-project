@@ -1,11 +1,11 @@
 require 'sinatra'
 require 'sqlite3'
 require 'byebug'
-require 'bcrypt'
+require 'slim'
+require './ClassFix.rb'
 
 require_relative 'modules.rb'
-	include ...
-
+	
 	enable:sessions
 
 	get('/') do

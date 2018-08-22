@@ -13,20 +13,20 @@ end
 
 def ClassFix(students)
     name_hash = {}
-    classes = []
+    groups = []
     lastclass = nil
     for s in students
         s = s.gsub(/\s+/m, ' ').strip.split(" ")
         if lastclass != s[0]
-            classes << s[0]
+            groups << s[0]
             lastclass = s[0]
         end
-        classes = classes.uniq
+        groups = groups.uniq
     end
 
 
     namelist = []
-    for s in classes
+    for s in groups
         for n in students
             n = n.gsub(/\s+/m, ' ').strip.split(" ")
             if s == n[0]
