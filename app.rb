@@ -7,8 +7,9 @@ require_relative 'modules.rb'
 	
 	enable:sessions
 
-	get('/') do
-		slim(:index)
+    get('/') do
+        groups = getList()[1]
+		slim(:index,  locals:{groups: groups})
     end
 
     post('/start') do
