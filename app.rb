@@ -40,9 +40,21 @@ require_relative 'modules.rb'
         id = params[:id]
         slim(:game2, locals:{className: className, id: id, names: names})
     end
-    
+
+    get('/score') do
+        score = nil #Denna ska sättas värde på. Detta sker igenom javascripten som räknar scoren i game2
+        slim(:score, locals:{names: session[:names], score:score})
+    end
+
+
     error 404 do
         slim(:error, :layout => false)
+    end
+
+    before '/score' do
+        if session[:names] == nil
+            halt 404
+        end
     end
 
     before '/game1' do
