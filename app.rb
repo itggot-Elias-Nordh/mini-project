@@ -40,3 +40,23 @@ require_relative 'modules.rb'
         id = params[:id]
         slim(:game2, locals:{className: className, id: id, names: names})
     end
+    
+    error 404 do
+        slim(:error, :layout => false)
+    end
+
+    before '/game1' do
+        if session[:className] == nil
+            halt 404
+        end
+    end
+
+    before '/game2/:id' do
+        begin
+            if params[:id] == nil or params[:id].to_i < 0 or params[:id].to_i > session[:names].length-1
+            halt 404 
+            end
+        rescue
+            halt 404
+        end
+   end
