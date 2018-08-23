@@ -4,6 +4,10 @@ html, body {
     font-family: sans-serif;
 }
 
+p {
+   text-transform: capitalize; 
+}
+
 
 container {
     display: flex;
