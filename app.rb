@@ -15,6 +15,7 @@ require_relative 'modules.rb'
     post('/start') do
         session[:className] = params[:className]
         session[:difficulty] = params[:difficulty]
+        session[:score] = 0
         redirect('/game1')
     end
 
@@ -37,13 +38,21 @@ require_relative 'modules.rb'
     get('/game2/:id') do
         names = session[:names]
         className = session[:className]
+        score = session[:score]
         id = params[:id]
-        slim(:game2, locals:{className: className, id: id, names: names})
+        slim(:game2, locals:{className: className, id: id, names: names, score:score})
     end
 
     get('/score') do
-        score = nil #Denna ska sättas värde på. Detta sker igenom javascripten som räknar scoren i game2
+        score = session[:score]
         slim(:score, locals:{names: session[:names], score:score})
+    end
+
+    post('/answer/:id') do
+        id = params[:id]
+        answer = params[:answer]
+        session[:score] += answer
+        redirect("/game2/"+(id.to_i+1).to_s)
     end
 
 
