@@ -30,7 +30,7 @@ require_relative 'modules.rb'
             size = (names.length/4).to_i
             names = names[0...size]
         end
-        session[:names] = names
+        session[:names] = names.shuffle
         slim(:game1, locals:{className: className, names: names})
     end
 
