@@ -113,6 +113,8 @@ group {
     display: flex;
     flex-direction: column;
     text-align: center;
+    margin-left: 10px;
+    margin-right: 10px;
 }
 
 .box {
