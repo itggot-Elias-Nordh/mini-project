@@ -19,25 +19,29 @@ require_relative 'modules.rb'
     end
 
     get('/game1') do
-        # className = session[:className]
-        # difficulty = session[:difficulty].to_i
-        # names = getList()[0][className].shuffle
-        # if difficulty == 2
-        # elsif difficulty == 1
-        #     size = (names.length/2).to_i
-        #     names = names[0...size]
-        # else
-        #     size = (names.length/4).to_i
-        #     names = names[0...size]
-        # end
-        # slim(:game1, locals:{className: className, names: names})
-        slim :game1
+        className = session[:className]
+        difficulty = session[:difficulty].to_i
+        names = getList()[0][className].shuffle
+        if difficulty == 2
+        elsif difficulty == 1
+            size = (names.length/2).to_i
+            names = names[0...size]
+        else
+            size = (names.length/4).to_i
+            names = names[0...size]
+        end
+        session[:names] = names
+        slim(:game1, locals:{className: className, names: names})
     end
 
     post('/game2') do
-        redirect('/game2')
+        id = params[:id]
+        redirect('/game2/'+id)
     end
-    
-    get('/game2') do
-        slim(:game2)
+
+    get('/game2/:id') do
+        names = session[:names]
+        className = session[:className]
+        id = params[:id]
+        slim(:game2, locals:{className: className, id: id, names: names})
     end
