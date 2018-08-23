@@ -6,10 +6,10 @@ form action="/answer/#{id}" method="POST"
     - opts = [0,0,0,1].shuffle
     - opts.each do |x|
         - if x == 1
-            input type="submit" name="#{answer}" value="#{names[id.to_i]}"
+            input type="submit" name="answer" value="#{names[id.to_i]}"
         - else
             - randomId = rand(names.length)
             - while id.to_i == randomId || takenIds.include?(randomId) == true
                 - randomId = rand(names.length)
             - takenIds.push(randomId)
-            input type="submit" name="#{answer}" value="#{names[randomId]}"
+            input type="submit" name="answer" value="#{names[randomId]}"

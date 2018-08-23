@@ -40,6 +40,7 @@ require_relative 'modules.rb'
         className = session[:className]
         score = session[:score]
         id = params[:id]
+        p names[id.to_i]
         slim(:game2, locals:{className: className, id: id, names: names, score:score})
     end
 
@@ -49,10 +50,17 @@ require_relative 'modules.rb'
     end
 
     post('/answer/:id') do
-        id = params[:id]
+        names = session[:names]
+        id = params[:id].to_i
         answer = params[:answer]
-        session[:score] += answer
-        redirect("/game2/"+(id.to_i+1).to_s)
+        if answer == names[id]
+            session[:score] += 1
+        end
+        if id == names.length-1
+            redirect("/score")
+        else
+            redirect("/game2/"+(id+1).to_s)
+        end
     end
 
 
