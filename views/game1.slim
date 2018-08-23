@@ -3,5 +3,10 @@ button#skip.myButton skip
 
 boxes
     - for name in names
-        image class="box" src="/img/#{className} #{name}.jpg"
-        p #{name}
+        group
+            image class="box" src="/img/#{className} #{name}.jpg"
+            - k = []
+            - for s in name.split(' ') do
+                - k << s.capitalize
+                - name = k.join(' ')
+            p #{name}

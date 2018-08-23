@@ -102,9 +102,17 @@ boxes {
     align-items: center;
     flex-wrap: wrap;
     width: 900px;
+    margin-top: 20px;
+}
+
+group {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
 }
 
 .box {
     border: 1px solid black;
     border-radius: 10px;
+    margin: 0;
 }
