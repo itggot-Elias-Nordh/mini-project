@@ -13,7 +13,14 @@ if (top.location.pathname == "/game1") {
         if ($('#timer').html() == "5") { $('#timer').css('color','red') };
     } , 1000);
     function timeOut() {
-        $.post('/game2');
-        top.location.pathname = '/game2'
+        var id = 0;
+        top.location.pathname = '/game2/' + id
     };
+    $("#skip").click(function() {
+        timeOut();
+    })
+};
+
+if (top.location.pathname == "/game2") {
+
 };

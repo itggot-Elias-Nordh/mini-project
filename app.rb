@@ -34,11 +34,6 @@ require_relative 'modules.rb'
         slim(:game1, locals:{className: className, names: names})
     end
 
-    post('/game2') do
-        id = params[:id]
-        redirect('/game2/'+id)
-    end
-
     get('/game2/:id') do
         names = session[:names]
         className = session[:className]
