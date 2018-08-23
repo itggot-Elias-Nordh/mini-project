@@ -1,11 +1,13 @@
+img src="https://i.imgur.com/c6M7pVR.png" alt=""/
 form action="/start" method="POST"
-    select name="className"
-        - for group in groups
-            option value="#{group}" #{group}
-            
-    select name="difficulty"
-        option value="0" Easy
-        option value="1" Medium
-        option value="2" Hard
+    pair
+        select name="className"
+            - for group in groups
+                option value="#{group}" #{group}
+                
+        select name="difficulty"
+            option value="0" Easy
+            option value="1" Medium
+            option value="2" Hard
 
-    input type="submit" value="Start"
+    input class="myButton"type="submit" value="Start"
