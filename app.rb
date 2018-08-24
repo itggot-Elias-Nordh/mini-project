@@ -40,7 +40,6 @@ require_relative 'modules.rb'
         className = session[:className]
         score = session[:score]
         id = params[:id]
-        p names[id.to_i]
         slim(:game2, locals:{className: className, id: id, names: names, score:score})
     end
 
