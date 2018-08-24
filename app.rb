@@ -8,11 +8,15 @@ require_relative 'modules.rb'
 	enable:sessions
 
     get('/') do
+        session[:start] = false 
         groups = getList()[1]
 		slim(:index, locals:{groups: groups})
     end
 
     post('/start') do
+        session[:start] = true 
+        session[:times] = 0
+        session[:cheat] = 0
         session[:className] = params[:className]
         session[:difficulty] = params[:difficulty]
         session[:score] = 0
@@ -20,6 +24,10 @@ require_relative 'modules.rb'
     end
 
     get('/game1') do
+        session[:times] += 1
+        if session[:start] == nil or session[:start] == false
+            redirect('/')
+        end
         className = session[:className]
         difficulty = session[:difficulty].to_i
         names = getList()[0][className].shuffle
@@ -31,11 +39,31 @@ require_relative 'modules.rb'
             size = (names.length/4).to_i
             names = names[0...size]
         end
+        if names.length < 4
+            session[:error] = "Too few students"
+			session[:back] = "/"
+			halt 404
+        end
+        if session[:times] > 1
+            session[:error] = "You are not allowed to view this page"
+            if session[:times] > names.length
+                session[:back] = "/score"
+            else
+                session[:cheat] += 1
+                session[:times] = session[:times] - 2
+                session[:back] = "/game2/#{session[:times] - 1}"
+            end
+            halt 404
+        end
         session[:names] = names.shuffle
         slim(:game1, locals:{className: className, names: names})
     end
 
     get('/game2/:id') do
+        session[:times] += 1
+        if session[:start] == nil or session[:start] == false
+            redirect('/')
+        end
         names = session[:names]
         className = session[:className]
         score = session[:score]
@@ -44,6 +72,10 @@ require_relative 'modules.rb'
     end
 
     get('/score') do
+        session[:times] += 1
+        if session[:start] == nil or session[:start] == false
+            redirect('/')
+        end
         score = session[:score]
         slim(:score, locals:{names: session[:names], score:score})
     end
@@ -62,29 +94,8 @@ require_relative 'modules.rb'
         end
     end
 
-
     error 404 do
-        slim(:error, :layout => false)
+        error = session[:error]
+		back = session[:back]
+        slim(:error, locals:{error: error, back: back})
     end
-
-    before '/score' do
-        if session[:names] == nil
-            halt 404
-        end
-    end
-
-    before '/game1' do
-        if session[:className] == nil
-            halt 404
-        end
-    end
-
-    before '/game2/:id' do
-        begin
-            if params[:id] == nil or params[:id].to_i < 0 or params[:id].to_i > session[:names].length-1
-            halt 404 
-            end
-        rescue
-            halt 404
-        end
-   end
